@@ -1,0 +1,65 @@
+.constraintsGrid {
+  display: flex;
+  padding: var(--spacing-3, 12px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-3, 12px);
+  align-self: stretch;
+}
+
+.constraintContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-3, 12px);
+  align-self: stretch;
+}
+
+.fieldDetailHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1, 4px);
+  align-self: stretch;
+
+  color: var(--global-foreground, #fff);
+  font-family: var(--code-font, "IBM Plex Mono");
+  font-size: var(--font-size-2, 11px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.fieldDetailComment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--spacing-1, 4px);
+  align-self: stretch;
+}
+
+.gridHeader {
+  display: flex;
+  padding: var(--spacing-2, 8px);
+  align-items: center;
+  gap: var(--spacing-1, 4px);
+  align-self: stretch;
+
+  border: 1px solid var(--global-border, #383a3b);
+  background: var(--pane-background-hover, #383a3b);
+
+  color: var(--global-foreground, #fff);
+  font-family: var(--code-font, "IBM Plex Mono");
+  font-size: var(--font-size-2, 11px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.iconContainer {
+  display: flex;
+  width: 12px;
+  height: 12px;
+  justify-content: center;
+  align-items: center;
+}
