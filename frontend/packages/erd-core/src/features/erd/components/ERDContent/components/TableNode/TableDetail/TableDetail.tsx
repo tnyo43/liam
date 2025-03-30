@@ -106,7 +106,11 @@ export const TableDetail: FC<Props> = ({ table }) => {
         {table.comment && <Comment comment={table.comment} />}
         <Columns columns={table.columns} />
         <Indices indices={table.indices} />
-        <Constraints columns={table.columns} />
+        <Constraints
+          tableName={table.name}
+          columns={table.columns}
+          relations={extractedDBStructure.relationships}
+        />
         <Unique columns={table.columns} />
         <div className={styles.relatedTables}>
           <RelatedTables

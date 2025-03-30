@@ -111,3 +111,29 @@
   font-weight: 400;
   line-height: normal;
 }
+
+.ddWithIcon {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  width: 100%;
+  border-style: none;
+}
+
+.iconContainer {
+  display: flex;
+  width: 12px;
+  height: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.ddPrimary {
+  color: var(--primary-accent, #1ded83);
+}
+
+.hr {
+  height: 1px;
+  align-self: stretch;
+  border: 1px solid var(--global-border, #383a3b);
+}
