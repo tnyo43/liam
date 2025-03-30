@@ -13,7 +13,7 @@ export const Constraints: FC<Props> = ({ columns }) => {
   // 24px is the padding of the list
   // 1px is the border of the list
   // const contentMaxHeight = uniqueColumnsCount * 17 + 24 + 1
-  const contentMaxHeight = 1000 // calc later
+  const contentMaxHeight = 2000 // calc later
   return (
     <CollapsibleHeader
       title="Constraints"
@@ -28,7 +28,7 @@ export const Constraints: FC<Props> = ({ columns }) => {
         <div className={styles.constraintContainer}>
           <div className={styles.fieldDetailHeader}>
             <div>
-              <KeyRound className={styles.iconContainer} />
+              <KeyRound className={styles.icon} />
             </div>
             <h3 className={styles.fieldDetailHeader}>Primary key</h3>
           </div>

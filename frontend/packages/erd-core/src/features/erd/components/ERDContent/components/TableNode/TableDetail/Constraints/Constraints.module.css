@@ -29,48 +29,13 @@
   line-height: normal;
 }
 
-.fieldDetailComment {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: var(--spacing-1, 4px);
-  align-self: stretch;
-}
-
-.gridHeader {
-  display: flex;
-  padding: var(--spacing-2, 8px);
-  align-items: center;
-  gap: var(--spacing-1, 4px);
-  align-self: stretch;
-
-  border: 1px solid var(--global-border, #383a3b);
-  background: var(--pane-background-hover, #383a3b);
-
-  color: var(--global-foreground, #fff);
-  font-family: var(--code-font, "IBM Plex Mono");
-  font-size: var(--font-size-2, 11px);
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-}
-
-.iconContainer {
+.icon {
   display: flex;
   width: 12px;
   height: 12px;
   justify-content: center;
   align-items: center;
   color: var(--primary-accent);
-}
-
-.table {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  align-self: stretch;
 }
 
 .tableHeader {
@@ -92,9 +57,11 @@
 }
 
 .dlWrapper {
-  display: grid;
-  gap: var(--spacing-2);
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-3, 12px);
+  align-self: stretch;
 }
 
 .dl {
@@ -103,6 +70,7 @@
   border-collapse: separate;
   border-spacing: 0;
   border-radius: var(--border-radius-sm);
+  width: 100%;
 }
 
 .dlItem {
