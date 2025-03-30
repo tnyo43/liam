@@ -98,6 +98,31 @@ export const Constraints: FC<Props> = ({ tableName, columns, relations }) => {
             )
           })}
         </div>
+
+        <hr className={styles.hr} />
+
+        <div className={styles.constraintContainer}>
+          <div className={styles.fieldDetailHeader}>
+            <div>
+              <Fingerprint width={12} />
+            </div>
+            <h3 className={styles.fieldDetailHeader}>Unique</h3>
+          </div>
+        </div>
+        <div className={styles.dlWrapper}>
+          {Object.entries(columns).map(([key, column]) => {
+            if (!column.unique) return null
+            return (
+              <dl key={key} className={styles.dl}>
+                <div className={styles.tableHeader}>{key}</div>
+                <div className={styles.dlItem}>
+                  <dt className={styles.dt}>Column</dt>
+                  <dd className={styles.dd}>{column.name}</dd>
+                </div>
+              </dl>
+            )
+          })}
+        </div>
       </div>
     </CollapsibleHeader>
   )
