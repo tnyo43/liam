@@ -1,7 +1,7 @@
 import type {
   Cardinality,
   Columns,
-  ForeignKeyConstraint,
+  ForeignKeyConstraintReferenceOption,
   Indices,
   Relationship,
   Tables,
@@ -27,13 +27,13 @@ function extractCardinality(cardinality: string): Cardinality {
 const FK_ACTIONS = 'SET NULL|SET DEFAULT|RESTRICT|CASCADE|NO ACTION'
 
 function extractForeignKeyActions(def: string): {
-  updateConstraint: ForeignKeyConstraint
-  deleteConstraint: ForeignKeyConstraint
+  updateConstraint: ForeignKeyConstraintReferenceOption
+  deleteConstraint: ForeignKeyConstraintReferenceOption
 } {
-  const defaultAction: ForeignKeyConstraint = 'NO_ACTION'
+  const defaultAction: ForeignKeyConstraintReferenceOption = 'NO_ACTION'
   const actions: {
-    updateConstraint: ForeignKeyConstraint
-    deleteConstraint: ForeignKeyConstraint
+    updateConstraint: ForeignKeyConstraintReferenceOption
+    deleteConstraint: ForeignKeyConstraintReferenceOption
   } = {
     updateConstraint: defaultAction,
     deleteConstraint: defaultAction,
@@ -56,7 +56,9 @@ function extractForeignKeyActions(def: string): {
   return actions
 }
 
-function normalizeConstraintName(constraint: string): ForeignKeyConstraint {
+function normalizeConstraintName(
+  constraint: string,
+): ForeignKeyConstraintReferenceOption {
   switch (constraint) {
     case 'cascade':
       return 'CASCADE'

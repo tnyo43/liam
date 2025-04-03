@@ -2,7 +2,7 @@ import type { DMMF } from '@prisma/generator-helper'
 import pkg from '@prisma/internals'
 import type {
   Columns,
-  ForeignKeyConstraint,
+  ForeignKeyConstraintReferenceOption,
   Index,
   Relationship,
   Table,
@@ -207,7 +207,9 @@ function extractDefaultValue(field: DMMF.Field) {
     : null
 }
 
-function normalizeConstraintName(constraint: string): ForeignKeyConstraint {
+function normalizeConstraintName(
+  constraint: string,
+): ForeignKeyConstraintReferenceOption {
   // ref: https://www.prisma.io/docs/orm/prisma-schema/data-model/relations/referential-actions
   switch (constraint) {
     case 'Cascade':
