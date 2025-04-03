@@ -1,6 +1,7 @@
 import type {
   Cardinality,
   Columns,
+  Constraints,
   ForeignKeyConstraintReferenceOption,
   Indices,
   Relationship,
@@ -94,6 +95,7 @@ async function parseTblsSchema(schemaString: string): Promise<ProcessResult> {
   for (const tblsTable of result.data.tables) {
     const columns: Columns = {}
     const indices: Indices = {}
+    const constraints: Constraints = {}
 
     const uniqueColumnNames = new Set(
       tblsTable.constraints
@@ -124,6 +126,60 @@ async function parseTblsSchema(schemaString: string): Promise<ProcessResult> {
       })
     }
 
+    if (tblsTable.constraints) {
+      for (const constraint of tblsTable.constraints) {
+        if (
+          constraint.type === 'PRIMARY KEY' &&
+          constraint.columns?.length // not unidefined and equal to or greater than 1
+        ) {
+          constraints[constraint.name] = {
+            type: 'PRIMARY KEY',
+            name: constraint.name,
+            columnNames: constraint.columns,
+          }
+        }
+
+        if (
+          constraint.type === 'FOREIGN KEY' &&
+          constraint.columns?.length && // not unidefined and equal to or greater than 1
+          constraint.referenced_columns?.length ===
+            constraint.columns?.length &&
+          constraint.referenced_table
+        ) {
+          const { updateConstraint, deleteConstraint } =
+            extractForeignKeyActions(constraint.def)
+          constraints[constraint.name] = {
+            type: 'FOREIGN KEY',
+            name: constraint.name,
+            columnNames: constraint.columns,
+            targetTableName: constraint.referenced_table,
+            targetColumnNames: constraint.referenced_columns,
+            updateConstraint,
+            deleteConstraint,
+          }
+        }
+
+        if (
+          constraint.type === 'UNIQUE' &&
+          constraint.columns?.length === 1 // not unidefined and equal to or greater than 1
+        ) {
+          constraints[constraint.name] = {
+            type: 'UNIQUE',
+            name: constraint.name,
+            columnNames: constraint.columns,
+          }
+        }
+
+        if (constraint.type === 'CHECK') {
+          constraints[constraint.name] = {
+            type: 'CHECK',
+            name: constraint.name,
+            detail: constraint.def,
+          }
+        }
+      }
+    }
+
     if (tblsTable.indexes) {
       for (const tblsIndex of tblsTable.indexes) {
         indices[tblsIndex.name] = anIndex({
@@ -138,6 +194,7 @@ async function parseTblsSchema(schemaString: string): Promise<ProcessResult> {
       name: tblsTable.name,
       columns,
       indices,
+      constraints,
       comment: tblsTable.comment ?? null,
     })
   }
