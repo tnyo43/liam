@@ -3,6 +3,8 @@ import {
   type DBStructure,
   columnNameSchema,
   columnSchema,
+  constraintNameSchema,
+  constraintSchema,
   dbStructureSchema,
   relationshipNameSchema,
   relationshipSchema,
@@ -14,10 +16,15 @@ import {
 const addColumnsSchema = v.record(columnNameSchema, columnSchema)
 export type AddColumns = v.InferOutput<typeof addColumnsSchema>
 
+// Schema for adding constraints to an existing table
+const addConstraintsSchema = v.record(constraintNameSchema, constraintSchema)
+export type AddConstraints = v.InferOutput<typeof addConstraintsSchema>
+
 // Schema for table overrides including the ability to add columns
 const tableOverrideSchema = v.object({
   comment: v.optional(v.nullable(v.string())),
   addColumns: v.optional(addColumnsSchema),
+  addConstraints: v.optional(addConstraintsSchema),
 })
 export type TableOverride = v.InferOutput<typeof tableOverrideSchema>
 
@@ -43,9 +50,11 @@ export type DBOverride = v.InferOutput<typeof dbOverrideSchema>
  * Applies override definitions to the existing DB structure.
  * This function will:
  * 1. Add new tables from addTables
- * 2. Apply overrides to existing tables (e.g., replacing comments)
- * 3. Add new columns to existing tables
- * 4. Add new relationships
+ * 2. Apply overrides to existing tables
+ * 2.1. Replace comments
+ * 2.2. Add new columns
+ * 2.3. Add new constraints
+ * 3. Add new relationships
  *
  * @param originalStructure The original DB structure
  * @param override The override definitions
@@ -99,6 +108,20 @@ export function applyOverrides(
             )
           }
           result.tables[tableName].columns[columnName] = columnDefinition
+        }
+      }
+
+      // Add new constraints
+      if (tableOverride.addConstraints) {
+        for (const [constraintName, constraint] of Object.entries(
+          tableOverride.addConstraints,
+        )) {
+          if (result.tables[tableName].constraints[constraintName]) {
+            throw new Error(
+              `Constraint ${constraintName} already exists in the database structure`,
+            )
+          }
+          result.tables[tableName].constraints[constraintName] = constraint
         }
       }
     }

@@ -83,7 +83,7 @@ const checkConstraintSchema = v.object({
 })
 export type CheckConstraint = v.InferOutput<typeof checkConstraintSchema>
 
-const constraintSchema = v.union([
+export const constraintSchema = v.union([
   primaryKeyConstraintSchema,
   foreignKeyConstraintSchema,
   uniqueConstraintSchema,
