@@ -218,6 +218,7 @@ export const convertToDBStructure = (stmts: RawStmt[]): ProcessResult => {
       columns,
       comment: null,
       indices: {},
+      constraints: {},
     }
   }
 
@@ -255,6 +256,7 @@ export const convertToDBStructure = (stmts: RawStmt[]): ProcessResult => {
             columns,
           },
         },
+        constraints: {},
       }
     }
   }
