@@ -36,6 +36,14 @@ describe(_processor, () => {
             ...override?.indexes,
           },
           comment: override?.comment ?? null,
+          constraints: {
+            PRIMARY_id: {
+              type: 'PRIMARY KEY',
+              name: 'PRIMARY_id',
+              columnNames: ['id'],
+            },
+            ...override?.constraints,
+          },
         }),
       },
     })
@@ -215,6 +223,13 @@ describe(_processor, () => {
             columns: ['mention'],
           }),
         },
+        constraints: {
+          UNIQUE_mention: {
+            type: 'UNIQUE',
+            name: 'UNIQUE_mention',
+            columnNames: ['mention'],
+          },
+        },
       })
 
       expect(value).toEqual(expected)
@@ -360,6 +375,13 @@ describe(_processor, () => {
             columns: ['email'],
           }),
         },
+        constraints: {
+          UNIQUE_email: {
+            type: 'UNIQUE',
+            name: 'UNIQUE_email',
+            columnNames: ['email'],
+          },
+        },
       })
 
       expect(value).toEqual(expected)
@@ -436,6 +458,18 @@ describe(_processor, () => {
                 type: '',
               },
             },
+            constraints: {
+              PRIMARY__id: {
+                type: 'PRIMARY KEY',
+                name: 'PRIMARY__id',
+                columnNames: ['_id'],
+              },
+              UNIQUE_raw_email_address: {
+                type: 'UNIQUE',
+                name: 'UNIQUE_raw_email_address',
+                columnNames: ['raw_email_address'],
+              },
+            },
           }),
           posts: aTable({
             name: 'posts',
@@ -461,6 +495,13 @@ describe(_processor, () => {
                 unique: true,
                 columns: ['id'],
               }),
+            },
+            constraints: {
+              PRIMARY_id: {
+                type: 'PRIMARY KEY',
+                name: 'PRIMARY_id',
+                columnNames: ['id'],
+              },
             },
           }),
         },
