@@ -18,7 +18,7 @@ export const Indexes: FC<Props> = ({ indexes }) => {
       isContentVisible={true}
       // NOTE: Header height for Columns section:
       // 40px (content) + 1px (border) = 41px
-      stickyTopHeight={41}
+      stickyTopHeight={82}
       contentMaxHeight={contentMaxHeight}
     >
       {Object.entries(indexes).map(([key, index]) => (
